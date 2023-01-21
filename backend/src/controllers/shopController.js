@@ -1,8 +1,9 @@
-const catchAsync = require("../Middleware/catchAsync");
+
+const catchAsyncError = require("../middlewares/catchAsyncError");
 const Store = require("../Models/shopModel");
 const ErrorHandler = require("../utils/errorHandler");
 
-exports.createShop = catchAsync(async (req, res, next) => {
+exports.createShop = catchAsyncError(async (req, res, next) => {
   const store = new Store({
     title: req.body.title,
     name: req.body.name,
@@ -20,7 +21,7 @@ exports.createShop = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getShopDetails = catchAsync(async (req, res, next) => {
+exports.getShopDetails = catchAsyncError(async (req, res, next) => {
   const { latitude, longitude, distance } = req.body;
   if (longitude && latitude) {
     if (!longitude && !latitude) {

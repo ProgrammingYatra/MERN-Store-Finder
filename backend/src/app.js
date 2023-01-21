@@ -1,12 +1,11 @@
 const express = require("express");
 const ErrorHandler = require("./middlewares/error");
-const Store=require("./routes/productRoute")
+const Store=require("./routes/shopRoute")
 const User=require("./routes/userRoute")
 const cookie=require("cookie-parser")
 const app = express();
-app.use(cookie())
 app.use(express.json());
-
+app.use(cookie())
 
 app.use(User)
 app.use(Store)
