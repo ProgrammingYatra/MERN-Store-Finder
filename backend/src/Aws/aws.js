@@ -1,9 +1,9 @@
 const AWS = require('aws-sdk')
 
 AWS.config.update({
-    accessKeyId: "AKIAY3L35MCRZNIRGT6N",
-    secretAccessKey: "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",
-    region: "ap-south-1"
+    accessKeyId: process.env.KEY,
+    secretAccessKey: process.env.AWS_SECRET_KEY,
+    region: process.env.REGION
 })
 
 let uploadFile = async (file) => {
@@ -13,10 +13,9 @@ let uploadFile = async (file) => {
         let uploadParams = {
             ACL: "public-read",
             Bucket: "classroom-training-bucket",
-            Key: "RupamStore/Shopping-Cart" + file.originalname,
+            Key: "RupamStore/Shop" + file.originalname,
             Body: file.buffer
         }
-
 
         s3.upload(uploadParams, function (err, data) {
             if (err) {

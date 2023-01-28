@@ -3,15 +3,21 @@ const userModel = require("../models/userModel");
 const ErrorHandler = require("../utils/errorHandler");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
+const aws = require("../Aws/aws.js");
 
 //register User
 exports.registerUser = catchAsyncError(async (req, res, next) => {
   const { name, email, password } = req.body;
-
+  const files=req.files;
+  if(!files){
+    return next(new ErrorHandler("Please Provide a Profile Image",400))
+  }
+  let profileImage = await aws.uploadFile(files[0]);
   const user = await userModel.create({
     name,
     email,
     password,
+    profileImage,
     avatar: {
       public_id: "myCloud.public_id",
       url: "myCloud.secure_url",
